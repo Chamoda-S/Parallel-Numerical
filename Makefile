@@ -2,6 +2,7 @@ CC ?= gcc
 MPICC ?= mpicc
 CFLAGS ?= -O2 -Wall -std=c11 -Iinclude
 OMPFLAG ?= -fopenmp
+LIBS ?= -lm
 
 SRCDIR = src
 BINDIR = bin
@@ -18,13 +19,13 @@ $(BINDIR):
 	mkdir -p $(BINDIR)
 
 $(BINDIR)/serial: $(SRCDIR)/main_serial.c $(SRCDIR)/trapezoid.c | $(BINDIR)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
 
 $(BINDIR)/openmp: $(SRCDIR)/main_openmp.c $(SRCDIR)/trapezoid.c | $(BINDIR)
-	$(CC) $(CFLAGS) $(OMPFLAG) $^ -o $@
+	$(CC) $(CFLAGS) $(OMPFLAG) $^ $(LIBS) -o $@
 
 $(BINDIR)/mpi: $(SRCDIR)/main_mpi.c $(SRCDIR)/trapezoid.c | $(BINDIR)
-	$(MPICC) $(CFLAGS) $^ -o $@
+	$(MPICC) $(CFLAGS) $^ $(LIBS) -o $@
 
 clean:
 	rm -f $(BINDIR)/serial $(BINDIR)/openmp $(BINDIR)/mpi
