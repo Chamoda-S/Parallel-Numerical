@@ -5,6 +5,8 @@
 #endif
 #include "../include/trapezoid.h"
 
+/* feature/openmp: small marker commit for branch separation */
+
 int main(int argc, char **argv) {
     double a = 0.0, b = 1.0;
     long n = 1000000;
