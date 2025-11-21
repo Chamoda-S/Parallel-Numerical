@@ -1,3 +1,12 @@
+/bin/
+*.o
+*.obj
+*.exe
+*.dll
+*.pyc
+__pycache__/
+.vscode/
+*.log
 # Prerequisites
 *.d
 
