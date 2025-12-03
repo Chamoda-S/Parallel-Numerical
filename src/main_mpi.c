@@ -1,9 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <mpi.h>
-#include "../include/trapezoid.h"
-
-/* feature/mpi: small marker commit for branch separation */
+#include<stdio.h>
+#include<stdlib.h>
+#include<mpi.h>
+#include"../include/trapezoid.h"
 
 int main(int argc, char **argv) {
     MPI_Init(&argc, &argv);
