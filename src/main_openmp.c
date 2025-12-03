@@ -1,11 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
 #ifdef _OPENMP
-#include <omp.h>
+#include<omp.h>
 #endif
 #include "../include/trapezoid.h"
-
-/* feature/openmp: small marker commit for branch separation */
 
 int main(int argc, char **argv) {
     double a = 0.0, b = 1.0;
