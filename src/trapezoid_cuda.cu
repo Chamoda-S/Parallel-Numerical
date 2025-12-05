@@ -3,7 +3,6 @@
 #include <cmath>
 #include <cuda.h>
 
-// Device-side function selector
 __device__ double device_func_eval(int func_id, double x) {
     switch (func_id) {
         case 0: return sin(x);
@@ -14,7 +13,7 @@ __device__ double device_func_eval(int func_id, double x) {
     }
 }
 
-// Kernel: each thread computes a grid-stride sum over interior points and atomically adds
+
 __global__ void trapezoid_kernel(double a, double h, long n, int func_id, double *d_sum) {
     unsigned long idx = blockIdx.x * blockDim.x + threadIdx.x;
     unsigned long stride = blockDim.x * gridDim.x;
@@ -27,7 +26,6 @@ __global__ void trapezoid_kernel(double a, double h, long n, int func_id, double
 #if __CUDA_ARCH__ >= 600
         atomicAdd(d_sum, local);
 #else
-        // older architectures may not support double atomicAdd; use atomicAdd on long long as fallback (less accurate)
         atomicAdd(d_sum, local);
 #endif
     }
@@ -35,7 +33,7 @@ __global__ void trapezoid_kernel(double a, double h, long n, int func_id, double
 
 int main(int argc, char **argv) {
     double a = 0.0, b = 1.0;
-    long n = 10000000; // default large
+    long n = 10000000; 
     int func_id = 0;
     if (argc > 1) a = atof(argv[1]);
     if (argc > 2) b = atof(argv[2]);
@@ -44,7 +42,6 @@ int main(int argc, char **argv) {
 
     double h = (b - a) / (double)n;
 
-    // choose launch parameters
     int threads = 256;
     int blocks = 256;
 
@@ -56,7 +53,6 @@ int main(int argc, char **argv) {
     }
     cudaMemset(d_sum, 0, sizeof(double));
 
-    // timing
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
