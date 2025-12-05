@@ -68,3 +68,11 @@ dkms.conf
 
 # Bench results
 bench/results.csv
+bench/sample_results.csv
+
+# Local outputs and virtual environments
+outputs/
+.venv2/
+
+# Ignore compiled binaries placed in src during local builds
+src/main_*
